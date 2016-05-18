@@ -40,8 +40,29 @@ class GettyImagesAdapter implements \Digicol\SchemaOrg\AdapterInterface
      */
     public function newSearchAction(array $search_params)
     {
-        $search_params[ 'credentials' ] = $this->params[ 'credentials' ];
+        return new GettyImagesSearchAction($this, $search_params);
+    }
 
-        return new GettyImagesSearchAction($search_params);
+
+    /**
+     * @param string $uri sameAs identifying URL
+     * @return \Digicol\SchemaOrg\ThingInterface
+     */
+    public function newThing($uri)
+    {
+        return new GettyImagesCreativeWork($this, [ 'sameAs' => $uri ]);
+    }
+
+
+    /**
+     * @return \GettyImages\Api\GettyImages_Client
+     */
+    public function newGettyImages_Client()
+    {
+        return new \GettyImages\Api\GettyImages_Client
+        (
+            $this->params[ 'credentials' ][ 'api_key' ],
+            $this->params[ 'credentials' ][ 'api_secret' ]
+        );
     }
 }

@@ -5,22 +5,21 @@ namespace Digicol\SchemaOrg\GettyImages;
 
 class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
 {
+    /** @var GettyImagesAdapter */
+    protected $adapter;
+
+    /** @var array */
     protected $params = [ ];
-    protected $response = [ ];
 
 
     /**
-     * ThingInterface constructor.
-     *
+     * @param GettyImagesAdapter $adapter
      * @param array $params
      */
-    public function __construct(array $params)
+    public function __construct(GettyImagesAdapter $adapter, array $params)
     {
+        $this->adapter = $adapter;
         $this->params = $params;
-
-        unset($this->params[ 'response' ]);
-
-        $this->response = $params[ 'response' ];
     }
 
 
@@ -43,13 +42,23 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
      */
     public function getProperties()
     {
+        if (! empty($this->params[ 'search_response' ]))
+        {
+            $response = $this->params[ 'search_response' ];
+        }
+        else
+        {
+            $response = $this->loadDetails($this->params[ 'sameAs' ]);
+        }
+
         $result =
             [
-                'name' => $this->response[ 'title' ],
-                'description' => $this->response[ 'caption' ]
+                'name' => $response[ 'title' ],
+                'description' => $response[ 'caption' ],
+                'sameAs' => 'https://api.gettyimages.com/v3/image?id=' . urlencode($response[ 'id' ])
             ];
 
-        foreach ($this->response[ 'display_sizes' ] as $display_size)
+        foreach ($response[ 'display_sizes' ] as $display_size)
         {
             if ($display_size[ 'name' ] === 'thumb')
             {
@@ -60,4 +69,34 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
         return $result;
     }
 
+
+    /**
+     * @return array Response
+     */
+    protected function loadDetails($uri)
+    {
+        $client = $this->adapter->newGettyImages_Client();
+
+        $response = $client
+            ->Images()
+            ->withId($this->uriToId($uri))
+            //->Fields([ 'caption', 'display_sizes', 'id', 'title' ])
+            ->execute();
+
+        $response = json_decode($response, true);
+
+        return $response[ 'images' ][ 0 ];
+    }
+
+
+    protected function uriToId($uri)
+    {
+        // https://api.gettyimages.com/v3/image?id=abc => abc
+
+        $qstring = parse_url($uri, PHP_URL_QUERY);
+
+        parse_str($qstring, $qparams);
+
+        return $qparams[ 'id' ];
+    }
 }

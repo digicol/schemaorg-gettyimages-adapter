@@ -6,16 +6,27 @@ namespace Digicol\SchemaOrg\GettyImages;
 class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterface
 {
     const DEFAULT_PAGESIZE = 20;
+
+    /** @var GettyImagesAdapter */
+    protected $adapter;
+
+    /** @var array */
     protected $params = [ ];
+
+    /** @var array */
     protected $input_properties = [ ];
+
+    /** @var array */
     protected $response = [ ];
 
 
     /**
+     * @param GettyImagesAdapter $adapter
      * @param array $params
      */
-    public function __construct(array $params)
+    public function __construct(GettyImagesAdapter $adapter, array $params)
     {
+        $this->adapter = $adapter;
         $this->params = $params;
     }
 
@@ -57,11 +68,7 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
             return -1;
         }
 
-        $client = new \GettyImages\Api\GettyImages_Client
-        (
-            $this->params[ 'credentials' ][ 'api_key' ],
-            $this->params[ 'credentials' ][ 'api_secret' ]
-        );
+        $client = $this->adapter->newGettyImages_Client();
 
         $query = $this->input_properties['q'];
 
@@ -99,7 +106,7 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
 
         foreach ($this->response['images'] as $item)
         {
-            $result[ ] = new GettyImagesCreativeWork([ 'response' => $item ]);
+            $result[ ] = new GettyImagesCreativeWork($this->adapter, [ 'search_response' => $item ]);
         }
 
         return $result;
@@ -121,7 +128,7 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
     {
         return
             [
-                'opensearch:totalResults' => intval($this->response[ 'result_count' ]),
+                'opensearch:totalResults' => (isset($this->response[ 'result_count' ]) ? intval($this->response[ 'result_count' ]) : 0),
                 'opensearch:startIndex' => \Digicol\SchemaOrg\Utils::getStartIndex($this->input_properties, self::DEFAULT_PAGESIZE),
                 'opensearch:itemsPerPage' => \Digicol\SchemaOrg\Utils::getItemsPerPage($this->input_properties, self::DEFAULT_PAGESIZE)
             ];
