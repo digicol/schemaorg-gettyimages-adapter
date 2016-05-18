@@ -1,0 +1,13 @@
+{
+    "require":
+    {
+        "gettyimages/gettyimages-api": "dev-master",
+        "digicol/schemaorg-sdk": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/digicol/schemaorg-sdk"
+        }
+    ]
+}

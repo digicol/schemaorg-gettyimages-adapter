@@ -1,0 +1,119 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "3923bf3d71700e74d94b43e6cced476d",
+    "content-hash": "a274d4c693e8d7e6f5881fed3e7c53a3",
+    "packages": [
+        {
+            "name": "digicol/schemaorg-sdk",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/digicol/schemaorg-sdk.git",
+                "reference": "2ce5a51d9691f76162c20a98b208e9c9bcae35c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/digicol/schemaorg-sdk/zipball/2ce5a51d9691f76162c20a98b208e9c9bcae35c0",
+                "reference": "2ce5a51d9691f76162c20a98b208e9c9bcae35c0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Digicol\\SchemaOrg\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Digital Collections Verlagsgesellschaft mbH",
+                    "email": "dev@digicol.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Digital Collections inofficial schema.org PHP SDK",
+            "homepage": "http://ww.digicol.de/",
+            "keywords": [
+                "schemaorg"
+            ],
+            "support": {
+                "source": "https://github.com/digicol/schemaorg-sdk/tree/master",
+                "issues": "https://github.com/digicol/schemaorg-sdk/issues"
+            },
+            "time": "2016-05-17 14:53:37"
+        },
+        {
+            "name": "gettyimages/gettyimages-api",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gettyimages/gettyimages-api_php.git",
+                "reference": "ddb3714e6c442296f664945f3694939a3d0f701d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gettyimages/gettyimages-api_php/zipball/ddb3714e6c442296f664945f3694939a3d0f701d",
+                "reference": "ddb3714e6c442296f664945f3694939a3d0f701d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "behat/behat": "~3.0.6",
+                "phine/phar": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GettyImages\\Api\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Getty Images, Inc.",
+                    "email": "developersupport@gettyimages.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Getty Images API SDK - PHP",
+            "homepage": "http://developer.gettyimages.com",
+            "keywords": [
+                "artist",
+                "creative",
+                "embed",
+                "getty",
+                "gettyimages",
+                "images",
+                "photo",
+                "photos",
+                "search"
+            ],
+            "time": "2016-05-10 21:22:03"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "gettyimages/gettyimages-api": 20,
+        "digicol/schemaorg-sdk": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
