@@ -59,8 +59,8 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
 
         $client = new \GettyImages\Api\GettyImages_Client
         (
-            $this->params[ 'api_key' ],
-            $this->params[ 'api_secret' ]
+            $this->params[ 'credentials' ][ 'api_key' ],
+            $this->params[ 'credentials' ][ 'api_secret' ]
         );
 
         $query = $this->input_properties['q'];

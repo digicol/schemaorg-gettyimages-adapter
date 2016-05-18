@@ -40,10 +40,7 @@ class GettyImagesAdapter implements \Digicol\SchemaOrg\AdapterInterface
      */
     public function newSearchAction(array $search_params)
     {
-        foreach ([ 'api_key', 'api_secret' ] as $key)
-        {
-            $search_params[ $key ] = $this->params[ $key ];
-        }
+        $search_params[ 'credentials' ] = $this->params[ 'credentials' ];
 
         return new GettyImagesSearchAction($search_params);
     }
