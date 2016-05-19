@@ -80,7 +80,8 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
         $response = $client
             ->Images()
             ->withId($this->uriToId($uri))
-            //->Fields([ 'caption', 'display_sizes', 'id', 'title' ])
+            ->withResponseField('detail_set')
+            ->withResponseField('display_set')
             ->execute();
 
         $response = json_decode($response, true);
