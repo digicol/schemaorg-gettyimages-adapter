@@ -53,16 +53,16 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
 
         $result =
             [
-                'name' => $response[ 'title' ],
-                'description' => $response[ 'caption' ],
-                'sameAs' => 'https://api.gettyimages.com/v3/image?id=' . urlencode($response[ 'id' ])
+                'name' => [ [ '@value' => $response[ 'title' ] ] ],
+                'caption' => [ [ '@value' => $response[ 'caption' ] ] ],
+                'sameAs' => [ [ '@id' => 'https://api.gettyimages.com/v3/image?id=' . urlencode($response[ 'id' ]) ] ]
             ];
 
         foreach ($response[ 'display_sizes' ] as $display_size)
         {
             if ($display_size[ 'name' ] === 'thumb')
             {
-                $result[ 'image' ] = $display_size[ 'uri' ];
+                $result[ 'image' ] = [ [ '@id' => $display_size[ 'uri' ] ] ];
             }
         }
 
