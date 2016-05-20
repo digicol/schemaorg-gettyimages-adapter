@@ -55,6 +55,7 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
             [
                 'name' => [ [ '@value' => $response[ 'title' ] ] ],
                 'caption' => [ [ '@value' => $response[ 'caption' ] ] ],
+                // TODO: Use referral_destinations instead, see http://developer.gettyimages.com/forum/read/191104/
                 'sameAs' => [ [ '@id' => 'https://api.gettyimages.com/v3/image?id=' . urlencode($response[ 'id' ]) ] ]
             ];
 
