@@ -24,6 +24,28 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
 
 
     /**
+     * Get identifier URI
+     *
+     * @return string
+     */
+    public function getSameAs()
+    {
+        if (! empty($this->params[ 'search_response' ][ 'id' ]))
+        {
+            return $this->idToUri($this->params[ 'search_response' ][ 'id' ]);
+        }
+        elseif (! empty($this->params[ 'sameAs' ]))
+        {
+            return $this->params[ 'sameAs' ];
+        }
+        else
+        {
+            return '';
+        }
+    }
+
+
+    /**
      * Get item type
      *
      * @return string schema.org type like "ImageObject" or "Thing"
@@ -55,8 +77,7 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
             [
                 'name' => [ [ '@value' => $response[ 'title' ] ] ],
                 'caption' => [ [ '@value' => $response[ 'caption' ] ] ],
-                // TODO: Use referral_destinations instead, see http://developer.gettyimages.com/forum/read/191104/
-                'sameAs' => [ [ '@id' => 'https://api.gettyimages.com/v3/image?id=' . urlencode($response[ 'id' ]) ] ]
+                'sameAs' => [ [ '@id' => $this->idToUri($response[ 'id' ]) ] ]
             ];
 
         foreach ($response[ 'display_sizes' ] as $display_size)
@@ -100,5 +121,12 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
         parse_str($qstring, $qparams);
 
         return $qparams[ 'id' ];
+    }
+
+
+    protected function idToUri($id)
+    {
+        // TODO: Use referral_destinations instead, see http://developer.gettyimages.com/forum/read/191104/
+        return 'https://api.gettyimages.com/v3/image?id=' . urlencode($id);
     }
 }
