@@ -31,6 +31,28 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
     }
 
 
+    /**
+     * Get item type
+     *
+     * @return string schema.org type like "ImageObject" or "Thing"
+     */
+    public function getType()
+    {
+        return 'SearchAction';
+    }
+
+
+    /**
+     * Get identifier URI
+     *
+     * @return string
+     */
+    public function getSameAs()
+    {
+        return '';
+    }
+
+
     /** @return array */
     public function getParams()
     {
@@ -98,47 +120,35 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
 
 
     /**
-     * Get search results
+     * Get all property values
      *
-     * @return array Array of objects implementing ThingInterface
+     * @return array
      */
-    public function getResult()
+    public function getProperties()
     {
-        $result = [ ];
+        $result = \Digicol\SchemaOrg\Utils::getSearchActionSkeleton();
 
         if (empty($this->response['images']))
         {
             return $result;
         }
 
-        foreach ($this->response['images'] as $item)
+        $result[ 'query' ] = (isset($this->input_properties['q']) ? $this->input_properties['q'] : '');
+        $result[ 'result' ][ 'numberOfItems' ] = (isset($this->response[ 'result_count' ]) ? intval($this->response[ 'result_count' ]) : 0);
+        $result[ 'result' ][ 'opensearch:itemsPerPage' ] = \Digicol\SchemaOrg\Utils::getItemsPerPage($this->input_properties, self::DEFAULT_PAGESIZE);
+        $result[ 'result' ][ 'opensearch:startIndex' ] = \Digicol\SchemaOrg\Utils::getStartIndex($this->input_properties, self::DEFAULT_PAGESIZE);
+
+        foreach ($this->response['images'] as $i => $item)
         {
-            $result[ ] = new GettyImagesCreativeWork($this->adapter, [ 'search_response' => $item ]);
+            $result[ 'result' ][ 'itemListElement' ][ ] =
+                [
+                    '@type' => 'ListItem',
+                    'position' => ($i + 1),
+                    'item' => new GettyImagesCreativeWork($this->adapter, [ 'search_response' => $item ])
+                ];
         }
 
         return $result;
-    }
-
-
-    /**
-     * Get search result metadata
-     *
-     * The array should contain at least these three values:
-     *
-     *   opensearch:totalResults (int)
-     *   opensearch:startIndex (int; 1 for the first document)
-     *   opensearch:itemsPerPage (int)
-     *
-     * @return array
-     */
-    public function getResultMeta()
-    {
-        return
-            [
-                'opensearch:totalResults' => (isset($this->response[ 'result_count' ]) ? intval($this->response[ 'result_count' ]) : 0),
-                'opensearch:startIndex' => \Digicol\SchemaOrg\Utils::getStartIndex($this->input_properties, self::DEFAULT_PAGESIZE),
-                'opensearch:itemsPerPage' => \Digicol\SchemaOrg\Utils::getItemsPerPage($this->input_properties, self::DEFAULT_PAGESIZE)
-            ];
     }
 
 }
