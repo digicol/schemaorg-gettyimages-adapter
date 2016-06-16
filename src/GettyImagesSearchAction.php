@@ -91,7 +91,7 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
      */
     public function execute()
     {
-        if (empty($this->input_properties['q']))
+        if (empty($this->input_properties['query']))
         {
             // TODO error handling
             return -1;
@@ -99,7 +99,7 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
 
         $client = $this->adapter->newGettyImages_Client();
 
-        $query = $this->input_properties['q'];
+        $query = $this->input_properties['query'];
 
         $items_per_page = \Digicol\SchemaOrg\Utils::getItemsPerPage($this->input_properties, self::DEFAULT_PAGESIZE);
         $page = \Digicol\SchemaOrg\Utils::getStartPage($this->input_properties);
@@ -133,7 +133,7 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
             return $result;
         }
 
-        $result[ 'query' ] = (isset($this->input_properties['q']) ? $this->input_properties['q'] : '');
+        $result[ 'query' ] = (isset($this->input_properties['query']) ? $this->input_properties['query'] : '');
         $result[ 'result' ][ 'numberOfItems' ] = (isset($this->response[ 'result_count' ]) ? intval($this->response[ 'result_count' ]) : 0);
         $result[ 'result' ][ 'opensearch:itemsPerPage' ] = \Digicol\SchemaOrg\Utils::getItemsPerPage($this->input_properties, self::DEFAULT_PAGESIZE);
         $result[ 'result' ][ 'opensearch:startIndex' ] = \Digicol\SchemaOrg\Utils::getStartIndex($this->input_properties, self::DEFAULT_PAGESIZE);
