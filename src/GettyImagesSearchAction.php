@@ -87,6 +87,17 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
 
 
     /**
+     * Get search parameters
+     *
+     * @return array
+     */
+    public function getInputProperties()
+    {
+        return $this->input_properties;
+    }
+
+
+    /**
      * @return int
      */
     public function execute()
