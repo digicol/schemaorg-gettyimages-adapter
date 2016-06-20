@@ -93,6 +93,19 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
 
 
     /**
+     * @return array
+     */
+    public function getReconciledProperties()
+    {
+        return \Digicol\SchemaOrg\Utils::reconcileThingProperties
+        (
+            $this->getType(),
+            $this->getProperties()
+        );
+    }
+
+    
+    /**
      * @return array Response
      */
     protected function loadDetails($uri)
