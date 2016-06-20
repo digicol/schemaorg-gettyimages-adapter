@@ -162,4 +162,17 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
         return $result;
     }
 
+
+    /**
+     * @return array
+     */
+    public function getReconciledProperties()
+    {
+        return \Digicol\SchemaOrg\Utils::reconcileThingProperties
+        (
+            $this->getType(),
+            $this->getProperties()
+        );
+    }
+
 }
