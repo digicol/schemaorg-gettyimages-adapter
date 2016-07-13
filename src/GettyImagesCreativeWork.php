@@ -80,6 +80,17 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
                 'sameAs' => [ [ '@id' => $this->idToUri($response[ 'id' ]) ] ]
             ];
 
+        if (mb_strlen($response[ 'caption' ]) > 500)
+        {
+            $caption_short = mb_substr($response[ 'caption' ], 0, 500) . '…';
+        }
+        else
+        {
+            $caption_short = $response[ 'caption' ];
+        }
+        
+        $result[ 'description' ] = [ [ '@value' => $caption_short ] ];
+        
         foreach ($response[ 'display_sizes' ] as $display_size)
         {
             if ($display_size[ 'name' ] === 'thumb')
