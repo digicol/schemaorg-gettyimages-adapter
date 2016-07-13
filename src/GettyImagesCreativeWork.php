@@ -80,6 +80,8 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
                 'sameAs' => [ [ '@id' => $this->idToUri($response[ 'id' ]) ] ]
             ];
 
+        // description
+        
         if (mb_strlen($response[ 'caption' ]) > 500)
         {
             $caption_short = mb_substr($response[ 'caption' ], 0, 500) . '…';
@@ -90,6 +92,37 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
         }
         
         $result[ 'description' ] = [ [ '@value' => $caption_short ] ];
+        
+        // dateCreated
+        
+        foreach ([ 'date_created', 'date_submitted' ] as $key)
+        {
+            if (! empty($response[ $key ]))
+            {
+                // Common DC-X hack - assume midnight means "just the date, no time"
+
+                if (strpos($response[ $key ], 'T00:00:00') !== false)
+                {
+                    $datatype = 'Date';
+                }
+                else
+                {
+                    $datatype = 'DateTime';
+                }
+
+                $result[ 'dateCreated' ] =
+                    [
+                        [
+                            '@value' => $response[ $key ],
+                            '@type' => $datatype
+                        ]
+                    ];
+
+                break;
+            }
+        }
+        
+        // image
         
         foreach ($response[ 'display_sizes' ] as $display_size)
         {

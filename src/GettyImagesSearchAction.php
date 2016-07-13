@@ -122,6 +122,7 @@ class GettyImagesSearchAction implements \Digicol\SchemaOrg\SearchActionInterfac
             ->withPhrase($query)
             ->withPage($page)
             ->withPageSize($items_per_page)
+            ->withResponseField('detail_set')
             ->execute();
 
         $this->response = json_decode($response, true);
