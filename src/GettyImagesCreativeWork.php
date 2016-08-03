@@ -75,6 +75,8 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
 
         $result =
             [
+                '@context' => \Digicol\SchemaOrg\Utils::getNamespaceContext(),
+                '@type' => $this->getType(),
                 'name' => [ [ '@value' => $response[ 'title' ] ] ],
                 'caption' => [ [ '@value' => $response[ 'caption' ] ] ],
                 'sameAs' => [ [ '@id' => $this->idToUri($response[ 'id' ]) ] ]
@@ -137,14 +139,15 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
 
 
     /**
+     * @param array $properties
      * @return array
      */
-    public function getReconciledProperties()
+    public function getReconciledProperties(array $properties)
     {
         return \Digicol\SchemaOrg\Utils::reconcileThingProperties
         (
             $this->getType(),
-            $this->getProperties()
+            $properties
         );
     }
 

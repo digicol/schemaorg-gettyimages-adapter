@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digicol/schemaorg-sdk.git",
-                "reference": "61e107bc98f34b9136b6db8fb1d344228e00798a"
+                "reference": "7741c82c5d4703de9ad4e522bbeb61ad9fd48541"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digicol/schemaorg-sdk/zipball/61e107bc98f34b9136b6db8fb1d344228e00798a",
-                "reference": "61e107bc98f34b9136b6db8fb1d344228e00798a",
+                "url": "https://api.github.com/repos/digicol/schemaorg-sdk/zipball/7741c82c5d4703de9ad4e522bbeb61ad9fd48541",
+                "reference": "7741c82c5d4703de9ad4e522bbeb61ad9fd48541",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "source": "https://github.com/digicol/schemaorg-sdk/tree/master",
                 "issues": "https://github.com/digicol/schemaorg-sdk/issues"
             },
-            "time": "2016-07-13 14:15:53"
+            "time": "2016-08-02 14:10:41"
         },
         {
             "name": "gettyimages/gettyimages-api",
@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gettyimages/gettyimages-api_php.git",
-                "reference": "ddb3714e6c442296f664945f3694939a3d0f701d"
+                "reference": "a39d3a1b1af55c0269a790e8e0ea3a445d9a7d34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gettyimages/gettyimages-api_php/zipball/ddb3714e6c442296f664945f3694939a3d0f701d",
-                "reference": "ddb3714e6c442296f664945f3694939a3d0f701d",
+                "url": "https://api.github.com/repos/gettyimages/gettyimages-api_php/zipball/a39d3a1b1af55c0269a790e8e0ea3a445d9a7d34",
+                "reference": "a39d3a1b1af55c0269a790e8e0ea3a445d9a7d34",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 "photos",
                 "search"
             ],
-            "time": "2016-05-10 21:22:03"
+            "time": "2016-07-15 07:09:54"
         }
     ],
     "packages-dev": [],
