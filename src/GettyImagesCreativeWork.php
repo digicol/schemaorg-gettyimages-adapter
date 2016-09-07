@@ -79,6 +79,7 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
                 '@type' => $this->getType(),
                 'name' => [ [ '@value' => $response[ 'title' ] ] ],
                 'caption' => [ [ '@value' => $response[ 'caption' ] ] ],
+                'provider' => [ [ '@value' => 'Getty Images' ] ],
                 'sameAs' => [ [ '@id' => $this->idToUri($response[ 'id' ]) ] ]
             ];
 
