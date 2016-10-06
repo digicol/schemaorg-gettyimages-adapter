@@ -129,9 +129,13 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
         
         foreach ($response[ 'display_sizes' ] as $display_size)
         {
-            if ($display_size[ 'name' ] === 'thumb')
+            if ($display_size[ 'name' ] === 'preview')
             {
                 $result[ 'image' ] = [ [ '@id' => $display_size[ 'uri' ] ] ];
+            }
+            elseif ($display_size[ 'name' ] === 'comp')
+            {
+                $result[ 'digicol:previewImage' ] = [ [ '@id' => $display_size[ 'uri' ] ] ];
             }
         }
 
