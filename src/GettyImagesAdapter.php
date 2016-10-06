@@ -31,7 +31,7 @@ class GettyImagesAdapter implements \Digicol\SchemaOrg\AdapterInterface
             [
                 'images' =>
                     [
-                        'name' => 'Images',
+                        'name' => 'Getty Images',
                         'description' => 'Search for both creative and editorial images',
                         'url' => 'https://api.gettyimages.com/v3/search/images'
                     ]
