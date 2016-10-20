@@ -127,22 +127,45 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
         
         // image
         
+        $result[ 'thumbnail' ] = [ ];
+        
         foreach ($response[ 'display_sizes' ] as $display_size)
         {
-            if ($display_size[ 'name' ] === 'preview')
-            {
-                $result[ 'image' ] = [ [ '@id' => $display_size[ 'uri' ] ] ];
-            }
-            elseif ($display_size[ 'name' ] === 'comp')
-            {
-                $result[ 'digicol:previewImage' ] = [ [ '@id' => $display_size[ 'uri' ] ] ];
-            }
+            $result[ 'thumbnail' ][ ] = $this->displaySizeToMediaObject($display_size);
         }
 
         return $result;
     }
 
 
+    /**
+     * Get media object array
+     *
+     * @param array $display_size
+     * @return array
+     */
+    protected function displaySizeToMediaObject(array $display_size)
+    {
+        $result =
+            [
+                '@type' => 'ImageObject',
+                'contentUrl' => $display_size[ 'uri' ]
+            ];
+
+        if (! empty($display_size[ 'width' ]))
+        {
+            $result[ 'width' ] = intval($display_size[ 'width' ]);
+        }
+
+        if (! empty($display_size[ 'height' ]))
+        {
+            $result[ 'height' ] = intval($display_size[ 'height' ]);
+        }
+        
+        return $result;
+    }
+
+    
     /**
      * @param array $properties
      * @return array

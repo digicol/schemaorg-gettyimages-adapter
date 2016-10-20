@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digicol/schemaorg-sdk.git",
-                "reference": "7c124da3fdbdf2cf44fcf3df927f218b810c765f"
+                "reference": "67335c8d51e601e2aa07cd572b495fc80b6b314f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digicol/schemaorg-sdk/zipball/7c124da3fdbdf2cf44fcf3df927f218b810c765f",
-                "reference": "7c124da3fdbdf2cf44fcf3df927f218b810c765f",
+                "url": "https://api.github.com/repos/digicol/schemaorg-sdk/zipball/67335c8d51e601e2aa07cd572b495fc80b6b314f",
+                "reference": "67335c8d51e601e2aa07cd572b495fc80b6b314f",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "source": "https://github.com/digicol/schemaorg-sdk/tree/master",
                 "issues": "https://github.com/digicol/schemaorg-sdk/issues"
             },
-            "time": "2016-10-06 09:27:53"
+            "time": "2016-10-20 09:00:28"
         },
         {
             "name": "gettyimages/gettyimages-api",
