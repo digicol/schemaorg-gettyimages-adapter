@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3923bf3d71700e74d94b43e6cced476d",
-    "content-hash": "a274d4c693e8d7e6f5881fed3e7c53a3",
+    "hash": "0f2c80829dc8d0a5b711527b91fc5d79",
+    "content-hash": "193f648ccf51f85eafae1fc8284e57c6",
     "packages": [
         {
             "name": "digicol/schemaorg-sdk",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/digicol/schemaorg-sdk.git",
-                "reference": "67335c8d51e601e2aa07cd572b495fc80b6b314f"
+                "reference": "51ee1649fe2d7ea9461318066fbc6fa888060a87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/digicol/schemaorg-sdk/zipball/67335c8d51e601e2aa07cd572b495fc80b6b314f",
-                "reference": "67335c8d51e601e2aa07cd572b495fc80b6b314f",
+                "url": "https://api.github.com/repos/digicol/schemaorg-sdk/zipball/51ee1649fe2d7ea9461318066fbc6fa888060a87",
+                "reference": "51ee1649fe2d7ea9461318066fbc6fa888060a87",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Digicol\\SchemaOrg\\": "src/"
+                    "Digicol\\SchemaOrg\\Sdk\\": "src/"
                 }
             },
             "license": [
@@ -49,7 +49,7 @@
                 "source": "https://github.com/digicol/schemaorg-sdk/tree/master",
                 "issues": "https://github.com/digicol/schemaorg-sdk/issues"
             },
-            "time": "2016-10-20 09:00:28"
+            "time": "2016-11-16 14:50:37"
         },
         {
             "name": "gettyimages/gettyimages-api",
@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gettyimages/gettyimages-api_php.git",
-                "reference": "a39d3a1b1af55c0269a790e8e0ea3a445d9a7d34"
+                "reference": "652e83d8bd7fb5371f30a29c36b71c7b72375f5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gettyimages/gettyimages-api_php/zipball/a39d3a1b1af55c0269a790e8e0ea3a445d9a7d34",
-                "reference": "a39d3a1b1af55c0269a790e8e0ea3a445d9a7d34",
+                "url": "https://api.github.com/repos/gettyimages/gettyimages-api_php/zipball/652e83d8bd7fb5371f30a29c36b71c7b72375f5e",
+                "reference": "652e83d8bd7fb5371f30a29c36b71c7b72375f5e",
                 "shasum": ""
             },
             "require": {
@@ -102,12 +102,13 @@
                 "photos",
                 "search"
             ],
-            "time": "2016-07-15 07:09:54"
+            "abandoned": true,
+            "time": "2016-11-01 22:19:07"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "gettyimages/gettyimages-api": 20,
         "digicol/schemaorg-sdk": 20

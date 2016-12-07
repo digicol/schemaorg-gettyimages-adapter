@@ -2,8 +2,14 @@
 
 namespace Digicol\SchemaOrg\GettyImages;
 
+use Digicol\SchemaOrg\Sdk\AdapterInterface;
+use Digicol\SchemaOrg\Sdk\PotentialSearchActionInterface;
+use Digicol\SchemaOrg\Sdk\SearchActionInterface;
+use Digicol\SchemaOrg\Sdk\ThingInterface;
+use GettyImages\Api\GettyImages_Client;
 
-class GettyImagesAdapter implements \Digicol\SchemaOrg\AdapterInterface
+
+class GettyImagesAdapter implements AdapterInterface
 {
     protected $params;
 
@@ -24,36 +30,31 @@ class GettyImagesAdapter implements \Digicol\SchemaOrg\AdapterInterface
     }
 
 
-    /** @return array */
-    public function describeSearchActions()
+    /**
+     * @return PotentialSearchActionInterface[]
+     */
+    public function getPotentialSearchActions()
     {
-        $result =
+        $result = 
             [
-                'images' =>
+                'images' => new GettyImagesPotentialSearchAction
+                (
+                    $this,
                     [
                         'name' => 'Getty Images',
                         'description' => 'Search for both creative and editorial images',
                         'url' => 'https://api.gettyimages.com/v3/search/images'
                     ]
+                )
             ];
-
+        
         return $result;
     }
 
 
     /**
-     * @param array $search_params
-     * @return \Digicol\SchemaOrg\SearchActionInterface
-     */
-    public function newSearchAction(array $search_params)
-    {
-        return new GettyImagesSearchAction($this, $search_params);
-    }
-
-
-    /**
      * @param string $uri sameAs identifying URL
-     * @return \Digicol\SchemaOrg\ThingInterface
+     * @return ThingInterface
      */
     public function newThing($uri)
     {
@@ -62,11 +63,11 @@ class GettyImagesAdapter implements \Digicol\SchemaOrg\AdapterInterface
 
 
     /**
-     * @return \GettyImages\Api\GettyImages_Client
+     * @return GettyImages_Client
      */
     public function newGettyImages_Client()
     {
-        return new \GettyImages\Api\GettyImages_Client
+        return new GettyImages_Client
         (
             $this->params[ 'credentials' ][ 'api_key' ],
             $this->params[ 'credentials' ][ 'api_secret' ]

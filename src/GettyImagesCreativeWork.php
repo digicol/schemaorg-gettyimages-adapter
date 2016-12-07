@@ -2,26 +2,16 @@
 
 namespace Digicol\SchemaOrg\GettyImages;
 
+use Digicol\SchemaOrg\Sdk\AbstractThing;
+use Digicol\SchemaOrg\Sdk\ThingInterface;
+use Digicol\SchemaOrg\Sdk\Utils;
 
-class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
+
+class GettyImagesCreativeWork extends AbstractThing implements ThingInterface
 {
     /** @var GettyImagesAdapter */
     protected $adapter;
-
-    /** @var array */
-    protected $params = [ ];
-
-
-    /**
-     * @param GettyImagesAdapter $adapter
-     * @param array $params
-     */
-    public function __construct(GettyImagesAdapter $adapter, array $params)
-    {
-        $this->adapter = $adapter;
-        $this->params = $params;
-    }
-
+    
 
     /**
      * Get identifier URI
@@ -75,7 +65,7 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
 
         $result =
             [
-                '@context' => \Digicol\SchemaOrg\Utils::getNamespaceContext(),
+                '@context' => Utils::getNamespaceContext(),
                 '@type' => $this->getType(),
                 'name' => [ [ '@value' => $response[ 'title' ] ] ],
                 'caption' => [ [ '@value' => $response[ 'caption' ] ] ],
@@ -172,7 +162,7 @@ class GettyImagesCreativeWork implements \Digicol\SchemaOrg\ThingInterface
      */
     public function getReconciledProperties(array $properties)
     {
-        return \Digicol\SchemaOrg\Utils::reconcileThingProperties
+        return Utils::reconcileThingProperties
         (
             $this->getType(),
             $properties
