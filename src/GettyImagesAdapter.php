@@ -42,7 +42,8 @@ class GettyImagesAdapter implements AdapterInterface
                     [
                         'name' => 'Getty Images',
                         'description' => 'Search for both creative and editorial images',
-                        'url' => 'https://api.gettyimages.com/v3/search/images'
+                        'url' => 'https://api.gettyimages.com/v3/search/images',
+                        'id' => 'images'
                     ]
                 )
             ];
