@@ -12,7 +12,7 @@ class GettyImagesPotentialSearchAction extends AbstractPotentialSearchAction imp
     /** @return array */
     public function describeInputProperties()
     {
-        return [ ];
+        return [];
     }
 
 
@@ -21,6 +21,6 @@ class GettyImagesPotentialSearchAction extends AbstractPotentialSearchAction imp
      */
     public function newSearchAction()
     {
-        return new GettyImagesSearchAction($this->getAdapter(), $this, [ ]);
+        return new GettyImagesSearchAction($this->getAdapter(), $this, []);
     }
 }

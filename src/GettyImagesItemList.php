@@ -18,9 +18,9 @@ class GettyImagesItemList extends AbstractItemList implements ItemListInterface
     /**
      * @param array $params
      */
-    public function __construct(AdapterInterface $adapter, SearchActionInterface $search_action, array $params)
+    public function __construct(AdapterInterface $adapter, SearchActionInterface $searchAction, array $params)
     {
-        parent::__construct($adapter, $search_action, $params);
+        parent::__construct($adapter, $searchAction, $params);
 
         $this->prepareItems();
     }
@@ -29,22 +29,23 @@ class GettyImagesItemList extends AbstractItemList implements ItemListInterface
     protected function prepareItems()
     {
         $this->items = [];
-        $this->output_properties['numberOfItems'] = 0;
+        $this->outputProperties['numberOfItems'] = 0;
 
         $response = $this->params['search_response'];
 
         if ((! is_array($response)) || empty($response['images'])) {
             return;
         }
-        
-        $inputProperties = $this->getSearchAction()->getInputProperties();
-        
-        $this->output_properties['numberOfItems'] = (isset($response['result_count']) ? intval($response['result_count']) : 0);
-        $this->output_properties['opensearch:itemsPerPage'] = Utils::getItemsPerPage($inputProperties, GettyImagesSearchAction::DEFAULT_PAGESIZE);
-        $this->output_properties['opensearch:startIndex'] = Utils::getStartIndex($inputProperties);
 
-        foreach ($response['images'] as $i => $item)
-        {
+        $inputProperties = $this->getSearchAction()->getInputProperties();
+
+        $this->outputProperties['numberOfItems'] = (isset($response['result_count']) ? intval($response['result_count']) : 0);
+        $this->outputProperties['opensearch:startIndex'] = Utils::getStartIndex($inputProperties);
+        
+        $this->outputProperties['opensearch:itemsPerPage'] = Utils::getItemsPerPage($inputProperties,
+            GettyImagesSearchAction::DEFAULT_PAGESIZE);
+        
+        foreach ($response['images'] as $i => $item) {
             $this->items[] = new GettyImagesCreativeWork
             (
                 $this->adapter,

@@ -11,7 +11,7 @@ class GettyImagesCreativeWork extends AbstractThing implements ThingInterface
 {
     /** @var GettyImagesAdapter */
     protected $adapter;
-    
+
 
     /**
      * Get identifier URI
@@ -20,16 +20,11 @@ class GettyImagesCreativeWork extends AbstractThing implements ThingInterface
      */
     public function getSameAs()
     {
-        if (! empty($this->params[ 'search_response' ][ 'id' ]))
-        {
-            return $this->idToUri($this->params[ 'search_response' ][ 'id' ]);
-        }
-        elseif (! empty($this->params[ 'sameAs' ]))
-        {
-            return $this->params[ 'sameAs' ];
-        }
-        else
-        {
+        if (! empty($this->params['search_response']['id'])) {
+            return $this->idToUri($this->params['search_response']['id']);
+        } elseif (! empty($this->params['sameAs'])) {
+            return $this->params['sameAs'];
+        } else {
             return '';
         }
     }
@@ -54,59 +49,48 @@ class GettyImagesCreativeWork extends AbstractThing implements ThingInterface
      */
     public function getProperties()
     {
-        if (! empty($this->params[ 'search_response' ]))
-        {
-            $response = $this->params[ 'search_response' ];
-        }
-        else
-        {
-            $response = $this->loadDetails($this->params[ 'sameAs' ]);
+        if (! empty($this->params['search_response'])) {
+            $response = $this->params['search_response'];
+        } else {
+            $response = $this->loadDetails($this->params['sameAs']);
         }
 
         $result =
             [
                 '@context' => Utils::getNamespaceContext(),
                 '@type' => $this->getType(),
-                'name' => [ [ '@value' => $response[ 'title' ] ] ],
-                'caption' => [ [ '@value' => $response[ 'caption' ] ] ],
-                'provider' => [ [ '@value' => 'Getty Images' ] ],
-                'sameAs' => [ [ '@id' => $this->idToUri($response[ 'id' ]) ] ]
+                'name' => [['@value' => $response['title']]],
+                'caption' => [['@value' => $response['caption']]],
+                'provider' => [['@value' => 'Getty Images']],
+                'sameAs' => [['@id' => $this->idToUri($response['id'])]]
             ];
 
         // description
-        
-        if (mb_strlen($response[ 'caption' ]) > 500)
-        {
-            $caption_short = mb_substr($response[ 'caption' ], 0, 500) . '…';
+
+        if (mb_strlen($response['caption']) > 500) {
+            $captionShort = mb_substr($response['caption'], 0, 500) . '…';
+        } else {
+            $captionShort = $response['caption'];
         }
-        else
-        {
-            $caption_short = $response[ 'caption' ];
-        }
-        
-        $result[ 'description' ] = [ [ '@value' => $caption_short ] ];
-        
+
+        $result['description'] = [['@value' => $captionShort]];
+
         // dateCreated
-        
-        foreach ([ 'date_created', 'date_submitted' ] as $key)
-        {
-            if (! empty($response[ $key ]))
-            {
+
+        foreach (['date_created', 'date_submitted'] as $key) {
+            if (! empty($response[$key])) {
                 // Common DC-X hack - assume midnight means "just the date, no time"
 
-                if (strpos($response[ $key ], 'T00:00:00') !== false)
-                {
+                if (strpos($response[$key], 'T00:00:00') !== false) {
                     $datatype = 'Date';
-                }
-                else
-                {
+                } else {
                     $datatype = 'DateTime';
                 }
 
-                $result[ 'dateCreated' ] =
+                $result['dateCreated'] =
                     [
                         [
-                            '@value' => $response[ $key ],
+                            '@value' => $response[$key],
                             '@type' => $datatype
                         ]
                     ];
@@ -114,14 +98,13 @@ class GettyImagesCreativeWork extends AbstractThing implements ThingInterface
                 break;
             }
         }
-        
+
         // image
-        
-        $result[ 'thumbnail' ] = [ ];
-        
-        foreach ($response[ 'display_sizes' ] as $display_size)
-        {
-            $result[ 'thumbnail' ][ ] = $this->displaySizeToMediaObject($display_size);
+
+        $result['thumbnail'] = [];
+
+        foreach ($response['display_sizes'] as $displaySize) {
+            $result['thumbnail'][] = $this->displaySizeToMediaObject($displaySize);
         }
 
         return $result;
@@ -131,31 +114,29 @@ class GettyImagesCreativeWork extends AbstractThing implements ThingInterface
     /**
      * Get media object array
      *
-     * @param array $display_size
+     * @param array $displaySize
      * @return array
      */
-    protected function displaySizeToMediaObject(array $display_size)
+    protected function displaySizeToMediaObject(array $displaySize)
     {
         $result =
             [
                 '@type' => 'ImageObject',
-                'contentUrl' => $display_size[ 'uri' ]
+                'contentUrl' => $displaySize['uri']
             ];
 
-        if (! empty($display_size[ 'width' ]))
-        {
-            $result[ 'width' ] = intval($display_size[ 'width' ]);
+        if (! empty($displaySize['width'])) {
+            $result['width'] = intval($displaySize['width']);
         }
 
-        if (! empty($display_size[ 'height' ]))
-        {
-            $result[ 'height' ] = intval($display_size[ 'height' ]);
+        if (! empty($displaySize['height'])) {
+            $result['height'] = intval($displaySize['height']);
         }
-        
+
         return $result;
     }
 
-    
+
     /**
      * @param array $properties
      * @return array
@@ -169,7 +150,7 @@ class GettyImagesCreativeWork extends AbstractThing implements ThingInterface
         );
     }
 
-    
+
     /**
      * @return array Response
      */
@@ -186,7 +167,7 @@ class GettyImagesCreativeWork extends AbstractThing implements ThingInterface
 
         $response = json_decode($response, true);
 
-        return $response[ 'images' ][ 0 ];
+        return $response['images'][0];
     }
 
 
@@ -198,7 +179,7 @@ class GettyImagesCreativeWork extends AbstractThing implements ThingInterface
 
         parse_str($qstring, $qparams);
 
-        return $qparams[ 'id' ];
+        return $qparams['id'];
     }
 
 

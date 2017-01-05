@@ -21,17 +21,16 @@ class GettyImagesSearchAction extends AbstractSearchAction implements SearchActi
      */
     public function getResult()
     {
-        if (empty($this->getQuery()))
-        {
-            return new GettyImagesItemList($this->getAdapter(), $this, [ 'search_response' => [] ]);
+        if (empty($this->getQuery())) {
+            return new GettyImagesItemList($this->getAdapter(), $this, ['search_response' => []]);
         }
 
         $client = $this->adapter->newGettyImages_Client();
 
         $query = $this->getQuery();
 
-        $items_per_page = Utils::getItemsPerPage($this->input_properties, self::DEFAULT_PAGESIZE);
-        $page = ceil(Utils::getStartIndex($this->input_properties) / $items_per_page);
+        $itemsPerPage = Utils::getItemsPerPage($this->inputProperties, self::DEFAULT_PAGESIZE);
+        $page = ceil(Utils::getStartIndex($this->inputProperties) / $itemsPerPage);
 
         $responseJson = $client
             ->Search()
@@ -39,12 +38,12 @@ class GettyImagesSearchAction extends AbstractSearchAction implements SearchActi
             ->Images()
             ->withPhrase($query)
             ->withPage($page)
-            ->withPageSize($items_per_page)
+            ->withPageSize($itemsPerPage)
             ->withResponseField('detail_set')
             ->execute();
 
         $response = json_decode($responseJson, true);
-        
-        return new GettyImagesItemList($this->getAdapter(), $this, [ 'search_response' => $response ]);
+
+        return new GettyImagesItemList($this->getAdapter(), $this, ['search_response' => $response]);
     }
 }

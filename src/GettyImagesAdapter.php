@@ -4,7 +4,6 @@ namespace Digicol\SchemaOrg\GettyImages;
 
 use Digicol\SchemaOrg\Sdk\AdapterInterface;
 use Digicol\SchemaOrg\Sdk\PotentialSearchActionInterface;
-use Digicol\SchemaOrg\Sdk\SearchActionInterface;
 use Digicol\SchemaOrg\Sdk\ThingInterface;
 use GettyImages\Api\GettyImages_Client;
 
@@ -35,7 +34,7 @@ class GettyImagesAdapter implements AdapterInterface
      */
     public function getPotentialSearchActions()
     {
-        $result = 
+        $result =
             [
                 'images' => new GettyImagesPotentialSearchAction
                 (
@@ -47,7 +46,7 @@ class GettyImagesAdapter implements AdapterInterface
                     ]
                 )
             ];
-        
+
         return $result;
     }
 
@@ -58,7 +57,7 @@ class GettyImagesAdapter implements AdapterInterface
      */
     public function newThing($uri)
     {
-        return new GettyImagesCreativeWork($this, [ 'sameAs' => $uri ]);
+        return new GettyImagesCreativeWork($this, ['sameAs' => $uri]);
     }
 
 
@@ -69,8 +68,8 @@ class GettyImagesAdapter implements AdapterInterface
     {
         return new GettyImages_Client
         (
-            $this->params[ 'credentials' ][ 'api_key' ],
-            $this->params[ 'credentials' ][ 'api_secret' ]
+            $this->params['credentials']['api_key'],
+            $this->params['credentials']['api_secret']
         );
     }
 }
